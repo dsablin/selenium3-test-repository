@@ -2,6 +2,10 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 
 namespace csharp_example
@@ -15,7 +19,21 @@ namespace csharp_example
         [SetUp]
         public void Start()
         {
-            _driver = new ChromeDriver();
+            //_driver = new EdgeDriver();
+            //_driver = new ChromeDriver();
+            //_driver = new InternetExplorerDriver();
+
+            //FirefoxBinary binary = new FirefoxBinary(@"c:\Program Files (x86)\Mozilla Firefox 45 ESR\firefox.exe");
+            //FirefoxProfile profile = new FirefoxProfile();
+            //_driver = new FirefoxDriver(binary, profile);
+
+            var options = new FirefoxOptions {
+                UseLegacyImplementation = false,
+                BrowserExecutableLocation = @"c:\Program Files (x86)\Nightly\firefox.exe"
+                //BrowserExecutableLocation = @"c:\Program Files (x86)\Mozilla Firefox 45 ESR\firefox.exe";
+            };
+            _driver = new FirefoxDriver(options);
+
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
         }
         [Test]
