@@ -63,7 +63,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="LiteCartCountriesSortingTests.cs" />
+    <Compile Include="LiteCartAdiminBaseTestFixture.cs" />
+    <Compile Include="LiteCartAdminAuditTests.cs" />
     <Compile Include="LiteCartStoreAuditTests.cs" />
     <Compile Include="LiteCartAdminLoginTests.cs" />
     <Compile Include="LiteCartAdminNavigationTests.cs" />

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
 namespace csharp_example
@@ -16,7 +15,7 @@ namespace csharp_example
         [SetUp]
         public void Start()
         {
-            _driver = new FirefoxDriver();
+            _driver = new ChromeDriver();
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
         }
 
