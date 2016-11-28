@@ -64,7 +64,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="LiteCartCountriesSortingTests.cs" />
-    <Compile Include="LiteCartStoreTests.cs" />
+    <Compile Include="LiteCartStoreAuditTests.cs" />
     <Compile Include="LiteCartAdminLoginTests.cs" />
     <Compile Include="LiteCartAdminNavigationTests.cs" />
     <Compile Include="MyFirstTest.cs" />
