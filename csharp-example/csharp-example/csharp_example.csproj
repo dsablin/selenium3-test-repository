@@ -63,11 +63,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="LiteCartAdiminBaseTestFixture.cs" />
-    <Compile Include="LiteCartAdminAuditTests.cs" />
-    <Compile Include="LiteCartStoreAuditTests.cs" />
-    <Compile Include="LiteCartAdminLoginTests.cs" />
-    <Compile Include="LiteCartAdminNavigationTests.cs" />
+    <Compile Include="BaseTestfixture.cs" />
+    <Compile Include="LiteCartAdminTests\LiteCartAdiminBaseTestFixture.cs" />
+    <Compile Include="LiteCartAdminTests\LiteCartAdminAuditTests.cs" />
+    <Compile Include="LiteCartOnlineStoreTests\LiteCartStoreUsersTests.cs" />
+    <Compile Include="LiteCartOnlineStoreTests\LiteCartStoreAuditTests.cs" />
+    <Compile Include="LiteCartAdminTests\LiteCartAdminLoginTests.cs" />
+    <Compile Include="LiteCartAdminTests\LiteCartAdminNavigationTests.cs" />
+    <Compile Include="LiteCartOnlineStoreTests\LiteCartStoreBaseTestFixture.cs" />
     <Compile Include="MyFirstTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

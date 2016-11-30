@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace csharp_example
+namespace csharp_example.LiteCartAdminTests
 {
     [TestFixture]
     public class LiteCartAdminAuditTests : LiteCartAdiminBaseTestFixture

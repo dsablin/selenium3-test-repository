@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp-example", "csharp-example\csharp-example.csproj", "{AF87686E-4F3B-4DCF-BEF0-99800BADBD0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp_example", "csharp-example\csharp_example.csproj", "{AF87686E-4F3B-4DCF-BEF0-99800BADBD0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

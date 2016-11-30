@@ -1,31 +1,19 @@
 ﻿using System;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace csharp_example
+namespace csharp_example.LiteCartOnlineStoreTests
 {
     [TestFixture]
-    public class LiteCartStoreAuditTests
+    public class LiteCartStoreAuditTests : LiteCartStoreBaseTestFixture
     {
-        private IWebDriver _driver;
-        private WebDriverWait _wait;
-
-        [SetUp]
-        public void Start()
-        {
-            _driver = new ChromeDriver();
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-        }
-
         [Test]
         public void LiteCartStoreLabelsAuditTest()
         {
-            _driver.Url = "http://localhost/litecart/en/";
-            _wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(".middle>.content")));
+            RunLiteCartOnlineStore();
 
-            var productsList = _driver.FindElements(By.CssSelector(".product"));
+            var productsList = Driver.FindElements(By.CssSelector(".product"));
             foreach (var product in productsList) {
                 try {
                     Assert.IsTrue(product.FindElements(By.CssSelector(".sticker")).Count == 1);
@@ -43,10 +31,9 @@ namespace csharp_example
             const string category = "Campaigns";
             const int productIndex = 1;
 
-            _driver.Url = "http://localhost/litecart/en/";
-            _wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(".middle>.content")));
+            RunLiteCartOnlineStore();
 
-            var catProduct = _driver.FindElement(By.XPath(
+            var catProduct = Driver.FindElement(By.XPath(
                 GetProductLinkXpath_ByCategoryAndIndex(category, productIndex)));
 
             var prodName = catProduct.FindElement(By.ClassName("name")).Text;
@@ -55,9 +42,9 @@ namespace csharp_example
             VerifyProperPricesStyles(catProduct);
 
             catProduct.Click();
-            _wait.Until(ExpectedConditions.ElementIsVisible(By.Id("box-product")));
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.Id("box-product")));
 
-            var productCard = _driver.FindElement(By.Id("box-product"));
+            var productCard = Driver.FindElement(By.Id("box-product"));
 
             Assert.AreEqual(prodName, productCard.FindElement(By.ClassName("title")).Text);
             Assert.AreEqual(regularPrice, productCard.FindElement(By.ClassName("regular-price")).Text);
@@ -74,13 +61,6 @@ namespace csharp_example
         {
             Assert.AreEqual("regular-price", element.FindElement(By.CssSelector("s")).GetAttribute("class"));
             Assert.AreEqual("campaign-price", element.FindElement(By.CssSelector("strong")).GetAttribute("class"));
-        }
-
-        [TearDown]
-        public void Stop()
-        {
-            _driver.Quit();
-            _driver = null;
         }
     }
 }

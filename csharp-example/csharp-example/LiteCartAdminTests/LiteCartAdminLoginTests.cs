@@ -2,7 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace csharp_example
+namespace csharp_example.LiteCartAdminTests
 {
     [TestFixture]
     public class LiteCartAdminLoginTests : LiteCartAdiminBaseTestFixture

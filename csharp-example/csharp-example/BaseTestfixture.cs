@@ -10,7 +10,7 @@ using OpenQA.Selenium.Remote;
 
 namespace csharp_example
 {
-    public class LiteCartAdiminBaseTestFixture
+    public class BaseTestfixture
     {
         public IWebDriver Driver;
         public WebDriverWait Wait;
@@ -22,7 +22,7 @@ namespace csharp_example
             //Driver = new EdgeDriver();
             //Driver = new ChromeDriver();
             //Driver = new InternetExplorerDriver();
-
+            
             //FirefoxBinary binary = new FirefoxBinary(@"c:\Program Files (x86)\Mozilla Firefox 45 ESR\firefox.exe");
             //FirefoxProfile profile = new FirefoxProfile();
             //Driver = new FirefoxDriver(binary, profile);
@@ -38,15 +38,6 @@ namespace csharp_example
             Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
 
 
-        }
-
-        public void LoginToLiteCartAdminConsole(string url)
-        {
-            Driver.Url = url;
-            Driver.FindElement(By.Name("username")).SendKeys("admin");
-            Driver.FindElement(By.Name("password")).SendKeys("admin");
-            Driver.FindElement(By.Name("login")).Click();
-            Wait.Until(ExpectedConditions.ElementIsVisible(By.Id("box-apps-menu-wrapper")));
         }
 
         [TearDown]
