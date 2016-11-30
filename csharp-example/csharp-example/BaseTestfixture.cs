@@ -36,8 +36,27 @@ namespace csharp_example
             //Driver = new FirefoxDriver(options);
 
             Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+        }
 
+        public static InputHelpers Input(IWebElement webElement)
+        {
+            return new InputHelpers(webElement);
+        }
 
+        public class InputHelpers
+        {
+            private readonly IWebElement _webElement;
+
+            public InputHelpers(IWebElement webElement)
+            {
+                _webElement = webElement;
+            }
+
+            public void SetText(string text)
+            {
+                _webElement.Clear();
+                _webElement.SendKeys(text);
+            }
         }
 
         [TearDown]
