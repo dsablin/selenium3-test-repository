@@ -13,6 +13,7 @@ namespace csharp_example.LiteCartOnlineStoreTests
         {
             var email = Guid.NewGuid().ToString("N").Substring(0, 10) + "@gm.com";
             var password = Guid.NewGuid().ToString("N").Substring(0, 10);
+
             RunLiteCartOnlineStore();
 
             Driver.FindElement(By.CssSelector("form[name=login_form] a")).Click();

@@ -66,6 +66,7 @@
     <Compile Include="BaseTestfixture.cs" />
     <Compile Include="LiteCartAdminTests\LiteCartAdiminBaseTestFixture.cs" />
     <Compile Include="LiteCartAdminTests\LiteCartAdminAuditTests.cs" />
+    <Compile Include="LiteCartAdminTests\LiteCartAdminProductsTests.cs" />
     <Compile Include="LiteCartOnlineStoreTests\LiteCartStoreUsersTests.cs" />
     <Compile Include="LiteCartOnlineStoreTests\LiteCartStoreAuditTests.cs" />
     <Compile Include="LiteCartAdminTests\LiteCartAdminLoginTests.cs" />
@@ -76,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TestData\jdphlogo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
