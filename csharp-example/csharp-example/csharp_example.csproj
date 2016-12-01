@@ -64,6 +64,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BaseTestfixture.cs" />
+    <Compile Include="Helpers\RandomUtils.cs" />
     <Compile Include="LiteCartAdminTests\LiteCartAdiminBaseTestFixture.cs" />
     <Compile Include="LiteCartAdminTests\LiteCartAdminAuditTests.cs" />
     <Compile Include="LiteCartAdminTests\LiteCartAdminProductsTests.cs" />
