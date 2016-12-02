@@ -1,5 +1,4 @@
-﻿
-using csharp_example.Helpers;
+﻿using csharp_example.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -19,27 +18,32 @@ namespace csharp_example.LiteCartOnlineStoreTests
 
             Driver.FindElement(By.CssSelector("form[name=login_form] a")).Click();
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.CssSelector("#create-account>h1"), "Create Account"));
-            
-            Input(Driver.FindElement(By.Name("firstname"))).SetText(RandomUtils.GetRandomString(7) + "_userFN");
-            Input(Driver.FindElement(By.Name("lastname"))).SetText(RandomUtils.GetRandomString(7) + "UserLN");
-            Input(Driver.FindElement(By.Name("address1"))).SetText(RandomUtils.GetRandomString(7) + "_address1");
-            Input(Driver.FindElement(By.Name("postcode"))).SetText(RandomUtils.GenerateNumberWithLength(6));
-            Input(Driver.FindElement(By.Name("city"))).SetText(RandomUtils.GetRandomString(7) + "_city");
-            Input(Driver.FindElement(By.Name("email"))).SetText(email);
-            Input(Driver.FindElement(By.Name("phone"))).SetText("+7" + RandomUtils.GenerateNumberWithLength(7));
-            Input(Driver.FindElement(By.Name("password"))).SetText(password);
-            Input(Driver.FindElement(By.Name("confirmed_password"))).SetText(password);
+
+            PutValueByInputName("firstname", RandomUtils.GetRandomString(7) + "_userFN");
+            PutValueByInputName("lastname", RandomUtils.GetRandomString(7) + "UserLN");
+            PutValueByInputName("address1", RandomUtils.GetRandomString(7) + "_address1");
+            PutValueByInputName("postcode", RandomUtils.GenerateNumberWithLength(6));
+            PutValueByInputName("city", RandomUtils.GetRandomString(7) + "_city");
+            PutValueByInputName("email", email);
+            PutValueByInputName("phone", "+7" + RandomUtils.GenerateNumberWithLength(7));
+            PutValueByInputName("password", password);
+            PutValueByInputName("confirmed_password", password);
 
             Driver.FindElement(By.Name("create_account")).Click();
             Wait.Until(ExpectedConditions.ElementIsVisible(By.Id("navigation")));
 
             CustomerLogout();
 
-            Input(Driver.FindElement(By.Name("email"))).SetText(email);
-            Input(Driver.FindElement(By.Name("password"))).SetText(password);
+            PutValueByInputName("email", email);
+            PutValueByInputName("password", password);
             Driver.FindElement(By.Name("login")).Click();
 
             CustomerLogout();
+        }
+
+        private void PutValueByInputName(string inputName, string text)
+        {
+            Input(Driver.FindElement(By.Name(inputName))).SetText(text);
         }
 
         private void CustomerLogout()
