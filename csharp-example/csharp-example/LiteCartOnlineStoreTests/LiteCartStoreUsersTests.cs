@@ -41,11 +41,6 @@ namespace csharp_example.LiteCartOnlineStoreTests
             CustomerLogout();
         }
 
-        private void PutValueByInputName(string inputName, string text)
-        {
-            Input(Driver.FindElement(By.Name(inputName))).SetText(text);
-        }
-
         private void CustomerLogout()
         {
             Wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(".list-vertical a[href$=logout]"))).Click();

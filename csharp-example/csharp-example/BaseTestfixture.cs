@@ -12,8 +12,8 @@ namespace csharp_example
 {
     public class BaseTestfixture
     {
-        public IWebDriver Driver;
-        public WebDriverWait Wait;
+        public static IWebDriver Driver;
+        public static WebDriverWait Wait;
 
         [SetUp]
         public void Start()
@@ -57,6 +57,11 @@ namespace csharp_example
                 _webElement.Clear();
                 _webElement.SendKeys(text);
             }
+        }
+
+        public void PutValueByInputName(string inputName, string text)
+        {
+            Input(Driver.FindElement(By.Name(inputName))).SetText(text);
         }
 
         [TearDown]
