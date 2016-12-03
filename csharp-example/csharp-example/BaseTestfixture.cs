@@ -71,7 +71,7 @@ namespace csharp_example
         public static string GetPathToUploadFile(string fileName)
         {
             var relativeFilePath = string.Format(UploadDir + fileName);
-            var dllDirPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(MyFirstTest)).Location);
+            var dllDirPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(BaseTestfixture)).Location);
             var absoluteFilePath = Path.Combine(dllDirPath, relativeFilePath);
             return Path.GetFullPath(absoluteFilePath);
         }

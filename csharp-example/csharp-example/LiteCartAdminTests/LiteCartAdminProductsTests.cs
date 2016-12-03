@@ -46,9 +46,9 @@ namespace csharp_example.LiteCartAdminTests
             Driver.FindElement(By.XPath("//td/a[.='Rubber Ducks']")).Click();
             Driver.FindElement(By.XPath("//td/a[.='Subcategory']")).Click();
             Assert.True(Driver.FindElements(By.XPath($".//*[@id='content']//table//a[.='{productName}']")).Count == 2);
-
         }
 
+        #region subsidiary methods
         private void FillInGeneralTabForm(string productName, string productCode, string uploadFile)
         {
             PutValueByInputName("name[en]", productName);
@@ -121,10 +121,6 @@ namespace csharp_example.LiteCartAdminTests
             tab.Click();
             Wait.Until(ExpectedConditions.TextToBePresentInElement(Driver.FindElement(By.CssSelector("form li.active")), name));
         }
-
-        private void WaitPageHeaderLoaded()
-        {
-            Wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#content>h1")));
-        }
+        #endregion //subsidiary methods
     }
 }
