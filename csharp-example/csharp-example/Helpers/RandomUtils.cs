@@ -11,7 +11,7 @@ namespace csharp_example.Helpers
             return Guid.NewGuid().ToString("N").Substring(0, n);
         }
 
-        public static string GenerateNumberWithLength(int numberLength)
+        public static string GenerateNumberStringWithLength(int numberLength)
         {
             var random = new Random();
             var number = "";
@@ -21,6 +21,10 @@ namespace csharp_example.Helpers
                 number += random.Next(0, 9).ToString();
             }
             return number;
+        }
+        public static string  GetRandomNumberStringFromInterval(int i)
+        {
+            return GetRandomNumberFromInterval(i).ToString();
         }
 
         public static int GetRandomNumberFromInterval(int i)

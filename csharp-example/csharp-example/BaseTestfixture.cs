@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Html5;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
 
@@ -14,6 +17,7 @@ namespace csharp_example
     {
         public static IWebDriver Driver;
         public static WebDriverWait Wait;
+        const string UploadDir = ".\\TestData\\";
 
         [SetUp]
         public void Start()
@@ -62,6 +66,14 @@ namespace csharp_example
         public void PutValueByInputName(string inputName, string text)
         {
             Input(Driver.FindElement(By.Name(inputName))).SetText(text);
+        }
+
+        public static string GetPathToUploadFile(string fileName)
+        {
+            var relativeFilePath = string.Format(UploadDir + fileName);
+            var dllDirPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(MyFirstTest)).Location);
+            var absoluteFilePath = Path.Combine(dllDirPath, relativeFilePath);
+            return Path.GetFullPath(absoluteFilePath);
         }
 
         [TearDown]

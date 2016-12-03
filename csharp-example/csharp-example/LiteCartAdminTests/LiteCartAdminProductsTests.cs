@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using csharp_example.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -16,6 +15,7 @@ namespace csharp_example.LiteCartAdminTests
             const string tabGeneral = "#tab-general";
             const string tabInformation = "#tab-information";
             const string tabData = "#tab-data";
+            const string fileName = "jdphlogo.jpg";
 
             var productName = Guid.NewGuid().ToString("N").Substring(0, 10);
             var productCode = Guid.NewGuid().ToString("N").Substring(0, 6);
@@ -28,48 +28,78 @@ namespace csharp_example.LiteCartAdminTests
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.CssSelector("#content>h1"), "Add New Product"));
 
             OpenTab(tabGeneral);
-            //FillInGeneralTabForm();
             SetProductEnabled();
-            Input(Driver.FindElement(By.Name("name[en]"))).SetText(productName);
-            Input(Driver.FindElement(By.Name("code"))).SetText(productCode);
+            FillInGeneralTabForm(productName, productCode, fileName);
+
+            OpenTab(tabInformation);
+            FillInInformationTabForm();
+
+            OpenTab(tabData);
+            FillInDataTabForm();
+
+            Driver.FindElement(By.CssSelector("button[name=save]")).Click();
+            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.CssSelector("#content>h1"), "Catalog"));
+            Assert.True(Driver.FindElements(By.XPath($".//*[@id='content']//table//a[.='{productName}']")).Count == 1);
+            Wait.Until(
+                ExpectedConditions.ElementToBeClickable(By.XPath($".//*[@id='content']//table//a[.='{productName}']")));
+            Driver.FindElement(By.XPath("//strong/a[.='[Root]']")).Click();
+            Driver.FindElement(By.XPath("//td/a[.='Rubber Ducks']")).Click();
+            Driver.FindElement(By.XPath("//td/a[.='Subcategory']")).Click();
+            Assert.True(Driver.FindElements(By.XPath($".//*[@id='content']//table//a[.='{productName}']")).Count == 2);
+
+        }
+
+        private void FillInGeneralTabForm(string productName, string productCode, string uploadFile)
+        {
+            PutValueByInputName("name[en]", productName);
+            PutValueByInputName("code", productCode);
             Driver.FindElement(By.CssSelector("input[data-name=Subcategory]")).Click();
-            //def.category
-            var selectDefaultCategory = new SelectElement(Driver.FindElement(By.Name("default_category_id")));
-            selectDefaultCategory.SelectByText("Subcategory");
-            //gender
+            GetDropdownOption_ByText_BySelectorName("default_category_id", "Subcategory");
             var genderList = Driver.FindElements(By.Name("product_groups[]"));
             var index = RandomUtils.GetRandomNumberFromInterval(genderList.Count);
             genderList[index].Click();
-            Input(Driver.FindElement(By.Name("quantity"))).SetText("10");
-            //Sold Out status
-            var soldOutStatus = new SelectElement(Driver.FindElement(By.Name("sold_out_status_id")));
-            soldOutStatus.SelectByText("Temporary sold out");
-            //upload file
-            const string fileName = "jdphlogo.jpg";
-            const string uploadDir = ".\\TestData\\";
-
-            const string relativeFilePath = uploadDir + fileName;
-            var absoluteFilePath = Path.Combine(Environment.CurrentDirectory, relativeFilePath);
-            var pathtoUploadFile = Path.GetFullPath(absoluteFilePath);
-
-            Driver.FindElement(By.Name("new_images[]")).SendKeys(pathtoUploadFile);
-
+            PutValueByInputName("quantity", RandomUtils.GetRandomNumberStringFromInterval(100));
+            GetDropdownOption_ByText_BySelectorName("sold_out_status_id", "Temporary sold out");
+            var pathToUploadFile = GetPathToUploadFile(uploadFile);
+            Driver.FindElement(By.CssSelector("input[type=file]")).SendKeys(pathToUploadFile);
             Driver.FindElement(By.Name("date_valid_from")).SendKeys("01.01.2016");
             Driver.FindElement(By.Name("date_valid_to")).SendKeys("01.01.2018");
+        }
 
-            OpenTab(tabInformation);
-            //FillInInformationTabForm();
-            var manufacturer = new SelectElement(Driver.FindElement(By.Name("manufacturer_id")));
-            manufacturer.SelectByValue("1");
-            Input(Driver.FindElement(By.Name("keywords"))).SetText("Test Keywords");
-            Input(Driver.FindElement(By.Name("short_description[en]"))).SetText("Test Short description");
-            Driver.FindElement(By.CssSelector(".trumbowyg-editor")).SendKeys("dyhrtyhetyhrty");
-            Input(Driver.FindElement(By.Name("head_title[en]"))).SetText("Test Title");
-            Input(Driver.FindElement(By.Name("meta_description[en]"))).SetText("Test Meta Description");
-            //
-            OpenTab(tabData);
+        private void FillInInformationTabForm()
+        {
+            GetDropdownOption_ByValue_BySelectorName("manufacturer_id", "1");
+            PutValueByInputName("keywords", RandomUtils.GetRandomString(10) + "_Keyword");
+            PutValueByInputName("short_description[en]", "TestSD_" + RandomUtils.GetRandomString(10));
+            PutValueByInputName("description[en]", "TestSD_" + RandomUtils.GetRandomString(16));
+            PutValueByInputName("head_title[en]", RandomUtils.GetRandomString(10) + "_Title");
+            PutValueByInputName("meta_description[en]", "Test Meta Description: " + RandomUtils.GetRandomString(10));
+        }
 
+        private void FillInDataTabForm()
+        {
+            PutValueByInputName("sku", RandomUtils.GenerateNumberStringWithLength(7));
+            PutValueByInputName("gtin", RandomUtils.GenerateNumberStringWithLength(12));
+            PutValueByInputName("taric", RandomUtils.GenerateNumberStringWithLength(14));
+            PutValueByInputName("weight", RandomUtils.GetRandomNumberStringFromInterval(999));
+            GetDropdownOption_ByValue_BySelectorName("weight_class", "g");
+            PutValueByInputName("dim_x", RandomUtils.GetRandomNumberStringFromInterval(100));
+            PutValueByInputName("dim_y", RandomUtils.GetRandomNumberStringFromInterval(100));
+            PutValueByInputName("dim_z", RandomUtils.GetRandomNumberStringFromInterval(100));
+            GetDropdownOption_ByValue_BySelectorName("dim_class", "mm");
+            PutValueByInputName("attributes[en]", RandomUtils.GetRandomString(16));
+        }
 
+        private static void GetDropdownOption_ByValue_BySelectorName(string name, string value)
+        {
+            var selectDefaultCategory = new SelectElement(Driver.FindElement(By.Name(name)));
+            selectDefaultCategory.SelectByValue(value);
+        }
+        
+        private static void GetDropdownOption_ByText_BySelectorName(string name, string text)
+        {
+            var selectDefaultCategory = new SelectElement(Driver.FindElement(By.Name(name)));
+            selectDefaultCategory.SelectByText(text);
         }
 
         private void SetProductEnabled()

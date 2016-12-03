@@ -22,10 +22,10 @@ namespace csharp_example.LiteCartOnlineStoreTests
             PutValueByInputName("firstname", RandomUtils.GetRandomString(7) + "_userFN");
             PutValueByInputName("lastname", RandomUtils.GetRandomString(7) + "UserLN");
             PutValueByInputName("address1", RandomUtils.GetRandomString(7) + "_address1");
-            PutValueByInputName("postcode", RandomUtils.GenerateNumberWithLength(6));
+            PutValueByInputName("postcode", RandomUtils.GenerateNumberStringWithLength(6));
             PutValueByInputName("city", RandomUtils.GetRandomString(7) + "_city");
             PutValueByInputName("email", email);
-            PutValueByInputName("phone", "+7" + RandomUtils.GenerateNumberWithLength(7));
+            PutValueByInputName("phone", "+7" + RandomUtils.GenerateNumberStringWithLength(7));
             PutValueByInputName("password", password);
             PutValueByInputName("confirmed_password", password);
 
