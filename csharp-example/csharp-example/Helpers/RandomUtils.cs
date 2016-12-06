@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Bogus;
 
 namespace csharp_example.Helpers
 {
@@ -22,6 +22,10 @@ namespace csharp_example.Helpers
             }
             return number;
         }
+
+        //Person pers = new Person();
+        //var fn = pers.FirstName;
+
         public static string  GetRandomNumberStringFromInterval(int i)
         {
             return GetRandomNumberFromInterval(i).ToString();

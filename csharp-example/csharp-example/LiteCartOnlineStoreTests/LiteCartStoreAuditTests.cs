@@ -8,6 +8,7 @@ namespace csharp_example.LiteCartOnlineStoreTests
     [TestFixture]
     public class LiteCartStoreAuditTests : LiteCartStoreBaseTestFixture
     {
+
         [Test]
         public void LiteCartStoreLabelsAuditTest()
         {
@@ -52,15 +53,19 @@ namespace csharp_example.LiteCartOnlineStoreTests
             VerifyProperPricesStyles(productCard);
         }
 
+        #region subsidiary methods
+
         private static string GetProductLinkXpath_ByCategoryAndIndex(string category, int productIndex)
         {
             return $"//h3[contains(text(),'{category}')]/../div//li['{productIndex}']/a[@class='link']";
         }
 
-        private static void VerifyProperPricesStyles(IWebElement element)
+        private static void VerifyProperPricesStyles(ISearchContext element)
         {
             Assert.AreEqual("regular-price", element.FindElement(By.CssSelector("s")).GetAttribute("class"));
             Assert.AreEqual("campaign-price", element.FindElement(By.CssSelector("strong")).GetAttribute("class"));
         }
+
+        #endregion //subsidiary methods
     }
 }

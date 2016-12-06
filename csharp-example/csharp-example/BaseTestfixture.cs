@@ -5,11 +5,6 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Html5;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
 
 namespace csharp_example
 {
@@ -75,6 +70,14 @@ namespace csharp_example
             var absoluteFilePath = Path.Combine(dllDirPath, relativeFilePath);
             return Path.GetFullPath(absoluteFilePath);
         }
+
+
+        public static void GetDropdownOption_ByValue_BySelectorName(string name, string value)
+        {
+            var selectDefaultCategory = new SelectElement(Driver.FindElement(By.Name(name)));
+            selectDefaultCategory.SelectByValue(value);
+        }
+
 
         [TearDown]
         public void Stop()

@@ -89,12 +89,6 @@ namespace csharp_example.LiteCartAdminTests
             GetDropdownOption_ByValue_BySelectorName("dim_class", "mm");
             PutValueByInputName("attributes[en]", RandomUtils.GetRandomString(16));
         }
-
-        private static void GetDropdownOption_ByValue_BySelectorName(string name, string value)
-        {
-            var selectDefaultCategory = new SelectElement(Driver.FindElement(By.Name(name)));
-            selectDefaultCategory.SelectByValue(value);
-        }
         
         private static void GetDropdownOption_ByText_BySelectorName(string name, string text)
         {
