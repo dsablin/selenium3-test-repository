@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System.Collections;
 
 namespace csharp_example.LiteCartAdminTests
 {
@@ -11,6 +13,30 @@ namespace csharp_example.LiteCartAdminTests
     public class LiteCartAdminAuditTests : LiteCartAdiminBaseTestFixture
     {
         [Test]
+        public void LiteCartAdminCountryManageTest()
+        {
+            LoginToLiteCartAdminConsole("http://localhost/litecart/admin/?app=countries&doc=countries");
+            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.CssSelector("#content>h1"), "Countries"));
+
+            Driver.FindElement(By.CssSelector("#content .button")).Click();
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[contains(text(), 'Add New Country')]")));
+            var mainWindow = Driver.CurrentWindowHandle;
+
+            var externalLinks = Driver.FindElements(By.CssSelector(".fa.fa-external-link"));
+            foreach (var link in externalLinks)
+            {
+                //ICollection<string> oldWindows = new List<string>(Driver.WindowHandles);
+                link.Click();
+                Driver.SwitchTo().Window(Driver.WindowHandles.Last());
+                var newWindow = Driver.CurrentWindowHandle;
+                //Wait.Until(ThereIsWindowOtherThan(oldWindows));
+                Driver.SwitchTo().Window(newWindow).Close();
+                Driver.SwitchTo().Window(mainWindow);
+            }
+            Assert.IsTrue(Driver.WindowHandles.Contains(mainWindow));
+        }
+
+    [Test]
         public void LiteCartAdminCountriesSortingTest()
         {
             LoginToLiteCartAdminConsole("http://localhost/litecart/admin/?app=countries&doc=countries");
@@ -63,11 +89,15 @@ namespace csharp_example.LiteCartAdminTests
             }
         }
 
+        #region subsidiary methods
+
         private static IEnumerable<string> GetSortedListModel(IEnumerable<string> cNames)
         {
             var listSorted = cNames.Select(d => d).ToList();
             listSorted.Sort();
             return listSorted;
         }
+
+        #endregion //subsidiary methods
     }
 }

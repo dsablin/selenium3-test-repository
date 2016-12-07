@@ -5,6 +5,8 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 
 namespace csharp_example
 {
@@ -17,11 +19,11 @@ namespace csharp_example
         [SetUp]
         public void Start()
         {
-            Driver = new ChromeDriver();
-            //Driver = new EdgeDriver();
             //Driver = new ChromeDriver();
-            //Driver = new InternetExplorerDriver();
-            
+            //Driver = new EdgeDriver();
+            //Driver = new FirefoxDriver();
+            Driver = new InternetExplorerDriver();
+
             //FirefoxBinary binary = new FirefoxBinary(@"c:\Program Files (x86)\Mozilla Firefox 45 ESR\firefox.exe");
             //FirefoxProfile profile = new FirefoxProfile();
             //Driver = new FirefoxDriver(binary, profile);

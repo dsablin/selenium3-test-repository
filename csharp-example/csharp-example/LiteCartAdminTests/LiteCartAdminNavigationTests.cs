@@ -33,9 +33,12 @@ namespace csharp_example.LiteCartAdminTests
             Wait.Until(ExpectedConditions.ElementIsVisible(By.Name("login")));
         }
 
-        private void WaitPageHeaderLoaded()
-        {
+        #region subsidiary methods
+
+        private static void WaitPageHeaderLoaded() {
             Wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#content>h1")));
         }
+
+        #endregion //subsidiary methods
     }
 }
