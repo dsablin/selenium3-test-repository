@@ -18,7 +18,7 @@ namespace csharp_example
             _driver = new ChromeDriver();
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
         }
-        [Test]
+        //[Test]
         public void Firsttest()
         {
             _driver.Url = "http://www.google.com/";

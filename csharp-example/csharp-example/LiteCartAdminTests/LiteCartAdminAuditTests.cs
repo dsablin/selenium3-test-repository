@@ -25,18 +25,39 @@ namespace csharp_example.LiteCartAdminTests
             var externalLinks = Driver.FindElements(By.CssSelector(".fa.fa-external-link"));
             foreach (var link in externalLinks)
             {
-                //ICollection<string> oldWindows = new List<string>(Driver.WindowHandles);
+                ICollection<string> oldWindows = new List<string>(Driver.WindowHandles);
                 link.Click();
-                Driver.SwitchTo().Window(Driver.WindowHandles.Last());
-                var newWindow = Driver.CurrentWindowHandle;
-                //Wait.Until(ThereIsWindowOtherThan(oldWindows));
-                Driver.SwitchTo().Window(newWindow).Close();
-                Driver.SwitchTo().Window(mainWindow);
+                var newWindow = Wait.Until(ThereIsWindowOtherThan(oldWindows));
+                if (newWindow != null)
+                {
+         //           Driver.SwitchTo().Window(newWindow).Close();
+                    Driver.SwitchTo().Window(newWindow);
+                    Driver.Close();
+                    Driver.SwitchTo().Window(mainWindow);
+                }
             }
-            Assert.IsTrue(Driver.WindowHandles.Contains(mainWindow));
         }
 
-    [Test]
+        public Func<IWebDriver, string> ThereIsWindowOtherThan(ICollection<string> oldWindows)
+        {
+            Func<IWebDriver, string> action = driver =>
+            {
+                ICollection<string> newWindows = driver.WindowHandles;
+                var newWindow = newWindows.FirstOrDefault(x => !oldWindows.Contains(x));
+                return newWindow;
+            };
+
+            return action;
+        }
+
+        //public string ThereIsWindowOtherThan(ICollection<string> oldWindows)
+        //{
+        //    ICollection<string> newWindows = Driver.WindowHandles;
+        //    var newWindow = newWindows.FirstOrDefault(x => !oldWindows.Contains(x));
+        //    return newWindow;
+        //}
+
+        [Test]
         public void LiteCartAdminCountriesSortingTest()
         {
             LoginToLiteCartAdminConsole("http://localhost/litecart/admin/?app=countries&doc=countries");
