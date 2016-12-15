@@ -10,7 +10,7 @@ namespace csharp_example.LiteCartAdminTests
         [Test]
         public void LiteCartAdminNavigationTest()
         {
-            LoginToLiteCartAdminConsole("http://localhost/litecart/admin/");
+            LoginToLiteCartAdminConsole();
 
             var menuList = Driver.FindElements(By.CssSelector("#box-apps-menu li"));
             for (var index = 0; index < menuList.Count; index++)
@@ -34,10 +34,6 @@ namespace csharp_example.LiteCartAdminTests
         }
 
         #region subsidiary methods
-
-        private static void WaitPageHeaderLoaded() {
-            Wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#content>h1")));
-        }
 
         #endregion //subsidiary methods
     }

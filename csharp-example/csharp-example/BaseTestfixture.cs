@@ -8,6 +8,8 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.Events;
 
 namespace csharp_example
 {
@@ -20,11 +22,45 @@ namespace csharp_example
         [SetUp]
         public void Start()
         {
-            Driver = new ChromeDriver();
+            var options = new ChromeOptions();
+            options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+
+            Driver = new ChromeDriver(options);
             //Driver = new EdgeDriver();
             //Driver = new FirefoxDriver();
             //Driver = new InternetExplorerDriver();
 
+            #region EventFiring
+            //EventFiringWebDriver driver = new EventFiringWebDriver(new ChromeDriver());
+            //driver.FindingElement += (sender, e) => Console.WriteLine(e.FindMethod);
+            //driver.FindElementCompleted += (sender, e) => Console.WriteLine(e.FindMethod + " found");
+            //driver.ExceptionThrown += (sender, e) => Console.WriteLine(e.ThrownException);
+            //Driver = driver;
+            #endregion //EventFiring
+
+            #region Remote
+            /*
+            DesiredCapabilities capability = DesiredCapabilities.Chrome();
+            capability.SetCapability("browserstack.user", "diversant1");
+            capability.SetCapability("browserstack.key", "ezmwLyCdpLsC1HVj9Dbg");
+            capability.SetCapability("build", "First build");
+            capability.SetCapability("browserstack.debug", "true");
+            capability.SetCapability("browserstack.local", "true");
+            capability.SetCapability("browser", "IE");
+            capability.SetCapability("browser_version", "11.0");
+            capability.SetCapability("os", "Windows");
+            capability.SetCapability("os_version", "8.1");
+
+            Driver = new RemoteWebDriver(
+              new Uri("http://hub-cloud.browserstack.com/wd/hub/"), capability);
+
+            //Driver = new RemoteWebDriver(new Uri("http://10.110.4.23:4444/wd/hub"), DesiredCapabilities.InternetExplorer());
+            //Driver = new RemoteWebDriver(new Uri("http://192.168.56.1:4444/wd/hub"), DesiredCapabilities.Chrome());
+            //Driver = new RemoteWebDriver(new Uri("http://10.110.4.23:4444/wd/hub"), DesiredCapabilities.Firefox());
+            */
+            #endregion //Remote
+
+            #region FF
             //FirefoxBinary binary = new FirefoxBinary(@"c:\Program Files (x86)\Mozilla Firefox 45 ESR\firefox.exe");
             //FirefoxProfile profile = new FirefoxProfile();
             //Driver = new FirefoxDriver(binary, profile);
@@ -36,6 +72,7 @@ namespace csharp_example
             //    //BrowserExecutableLocation = @"c:\Program Files (x86)\Mozilla Firefox 45 ESR\firefox.exe";
             //};
             //Driver = new FirefoxDriver(options);
+            #endregion //FF
 
             Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
         }

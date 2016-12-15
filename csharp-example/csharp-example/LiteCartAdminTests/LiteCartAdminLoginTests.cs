@@ -10,7 +10,7 @@ namespace csharp_example.LiteCartAdminTests
         [Test]
         public void LiteCartAdminLoginTest()
         {
-            LoginToLiteCartAdminConsole("http://localhost/litecart/admin/");
+            LoginToLiteCartAdminConsole("http://192.168.56.1/litecart/admin/");
 
             Driver.FindElement(By.ClassName("fa-sign-out")).Click();
             Wait.Until(ExpectedConditions.ElementIsVisible(By.Name("login")));

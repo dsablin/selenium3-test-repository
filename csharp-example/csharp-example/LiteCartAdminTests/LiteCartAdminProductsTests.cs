@@ -20,12 +20,12 @@ namespace csharp_example.LiteCartAdminTests
             var productName = Guid.NewGuid().ToString("N").Substring(0, 10);
             var productCode = Guid.NewGuid().ToString("N").Substring(0, 6);
 
-            LoginToLiteCartAdminConsole("http://localhost/litecart/admin/");
+            LoginToLiteCartAdminConsole();
 
             Driver.FindElement(By.CssSelector("#box-apps-menu a[href$=catalog]")).Click();
-            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.CssSelector("#content>h1"), "Catalog"));
+            WaitPageHeaderLoaded("Catalog");
             Wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(".button[href$=edit_product]"))).Click();
-            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.CssSelector("#content>h1"), "Add New Product"));
+            WaitPageHeaderLoaded("Add New Product");
 
             OpenTab(tabGeneral);
             SetProductEnabled();
@@ -38,7 +38,7 @@ namespace csharp_example.LiteCartAdminTests
             FillInDataTabForm();
 
             Driver.FindElement(By.CssSelector("button[name=save]")).Click();
-            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.CssSelector("#content>h1"), "Catalog"));
+            WaitPageHeaderLoaded("Catalog");
             Assert.True(Driver.FindElements(By.XPath($".//*[@id='content']//table//a[.='{productName}']")).Count == 1);
             Wait.Until(
                 ExpectedConditions.ElementToBeClickable(By.XPath($".//*[@id='content']//table//a[.='{productName}']")));
