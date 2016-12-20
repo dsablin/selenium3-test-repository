@@ -22,10 +22,18 @@ namespace csharp_example
         [SetUp]
         public void Start()
         {
-            var options = new ChromeOptions();
-            options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+           /* var options = new ChromeOptions();
 
-            Driver = new ChromeDriver(options);
+            var proxy = new Proxy
+            {
+                Kind = ProxyKind.Manual,
+                HttpProxy = "localhost:8888"
+            };
+            options.Proxy = proxy;
+            */
+            //options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+
+            Driver = new ChromeDriver();
             //Driver = new EdgeDriver();
             //Driver = new FirefoxDriver();
             //Driver = new InternetExplorerDriver();

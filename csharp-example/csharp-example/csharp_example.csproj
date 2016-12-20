@@ -71,6 +71,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BasePage.cs" />
     <Compile Include="BaseTestfixture.cs" />
     <Compile Include="Helpers\RandomUtils.cs" />
     <Compile Include="LiteCartAdminTests\LiteCartAdiminBaseTestFixture.cs" />
@@ -83,6 +84,9 @@
     <Compile Include="LiteCartAdminTests\LiteCartAdminNavigationTests.cs" />
     <Compile Include="LiteCartOnlineStoreTests\LiteCartStoreBaseTestFixture.cs" />
     <Compile Include="MyFirstTest.cs" />
+    <Compile Include="PagesObjects\CartPage.cs" />
+    <Compile Include="PagesObjects\ProductPage.cs" />
+    <Compile Include="PagesObjects\StoreHomePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
